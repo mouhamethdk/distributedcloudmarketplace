@@ -27,3 +27,4 @@ Steps for a functional setup:
 - Clone the repository:   `git clone <https link of the repo> `
 - Enter the repository:   `cd distributedcloudmarketplace`
 - Work on personal branch:   `git checkout -b <your_first_name>`. Check the existing branches before performing this action.
+- Switch between branches:   `git checkout <name_of_the_branch`
