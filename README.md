@@ -11,3 +11,12 @@ This project is a distributed cloud marketplace designed to allow clients to sel
 - Secure and immutable transaction records.
 - Proof of service execution.
 ### Intel SGX: TEE (Trust Execution Environment) that ensures confidentiality and integrity of execution
+
+
+
+# Intended usage 
+Create an Account: Register as a client or provider.
+Browse Services: View available services from App, Dataset, and Hardware providers.
+Place an Order: Select services, place an order, and confirm billing.
+Execution Proof: Upon completion, execution proofs are generated and stored on the blockchain for transparency.
+
