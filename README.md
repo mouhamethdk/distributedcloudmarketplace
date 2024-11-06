@@ -20,3 +20,10 @@ Browse Services: View available services from App, Dataset, and Hardware provide
 Place an Order: Select services, place an order, and confirm billing.
 Execution Proof: Upon completion, execution proofs are generated and stored on the blockchain for transparency.
 
+
+
+# For the team
+Steps for a functional setup:
+- Clone the repository: `git clone <https link of the repo> `
+- Enter the repository:`cd distributedcloudmarketplace`
+- Work on personal branch: `git checkout -b <your_first_name>`. Check the existing branches before performing this action.
