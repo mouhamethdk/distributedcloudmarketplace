@@ -14,7 +14,7 @@ const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
     alignItems: 'center',
   },
 }));
-
+//salut
 export default function NavbarBreadcrumbs() {
   return (
     <StyledBreadcrumbs
