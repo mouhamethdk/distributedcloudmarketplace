@@ -20,6 +20,8 @@ Browse Services: View available services from App, Dataset, and Hardware provide
 Place an Order: Select services, place an order, and confirm billing.
 Execution Proof: Upon completion, execution proofs are generated and stored on the blockchain for transparency.
 
+# Sequence diagram
+![alt text](https://github.com/mouhamethdk/distributedcloudmarketplace/blob/main/docs/sequence_diagram.png?raw=true)
 
 
 # For the team
