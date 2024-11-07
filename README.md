@@ -15,10 +15,10 @@ This project is a distributed cloud marketplace designed to allow clients to sel
 
 
 # Intended usage 
-Create an Account: Register as a client or provider.
-Browse Services: View available services from App, Dataset, and Hardware providers.
-Place an Order: Select services, place an order, and confirm billing.
-Execution Proof: Upon completion, execution proofs are generated and stored on the blockchain for transparency.
+- Create an Account: Register as a client or provider.
+- Browse Services: View available services from App, Dataset, and Hardware providers.
+- Place an Order: Select services, place an order, and confirm billing.
+- Execution Proof: Upon completion, execution proofs are generated and stored on the blockchain for transparency.
 
 # Sequence diagram
 ![alt text](https://github.com/mouhamethdk/distributedcloudmarketplace/blob/main/docs/sequence_diagram.png?raw=true)
