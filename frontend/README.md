@@ -32,3 +32,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
 ###### (Since we want to deploy the site very fast, we (the frontend team) should not pass on this !!)
+
+### Additionnal resources
+- Templates: https://mui.com/material-ui/getting-started/templates/
