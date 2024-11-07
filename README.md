@@ -31,6 +31,6 @@ Steps for a functional setup:
 
 To perform a push on your branch:
 - Make sure you're on your own branch: `git checkout <your_first_name>`
-- `git add <name_of_the_folder>`. Put . if all the directories must be added.
+- `git add <name_of_the_folder>`. Put `.` if all the directories must be added.
 - `git commit -m <your_commit_message>`
 - `git push origin <your_branch_name>`
