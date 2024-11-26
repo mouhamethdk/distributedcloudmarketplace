@@ -1,0 +1,333 @@
+
+/* ---------------- Navbar ---------------- */
+/* Style général pour la barre de navigation */
+
+
+/* Style général pour la navbar */
+#navbar {
+    display: flex;
+    justify-content: space-between; /* Sépare les éléments gauche et droite */
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Transparent avec un peu plus de visibilité */
+    padding: 10px 25px; /* Espacement interne */
+    border-radius: 20px; /* Bord arrondi */
+    border: 2px solid rgba(77, 115, 223, 0.5); /* Bordure visible */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre subtile */
+    position: fixed; /* Fixée en haut de la page */
+    top: 20px; /* Distance depuis le haut */
+    left: 50%; /* Centre horizontalement */
+    transform: translateX(-50%); /* Ajuste pour centrer l'élément */
+    width: 60%; /* Largeur de la navbar */
+    z-index: 1000; /* Assure que la navbar est au-dessus des autres éléments */
+    backdrop-filter: blur(10px); /* Effet de flou pour un fond stylisé */
+}
+
+
+/* Style pour les liens à gauche */
+.nav-links {
+    display: flex;
+    list-style: none; /* Supprime les puces */
+    margin: 0;
+    padding: 0;
+    gap: 20px; /* Espacement entre les liens */
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: rgb(77, 115, 223); /* Bleu clair */
+}
+
+/* Style pour les actions à droite */
+.nav-actions {
+    display: flex;
+    gap: 30px; /* Espace entre "Panier" et "Connexion" */
+}
+
+.cart a, .profil a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.cart a i, .profil a i {
+    margin-right: 5px; /* Espacement entre l'icône et le texte */
+}
+
+.cart a:hover, .profil a:hover {
+    color: rgb(77, 115, 223); /* Bleu clair */
+}
+
+/* Optionnel : Améliorer l'apparence de l'icône */
+i {
+    font-size: 18px;
+}
+
+/* Style pour la barre de recherche centrée */
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(77, 115, 223, 0.5); /* Bordure cohérente avec la navbar */
+    border-radius: 20px; /* Bords arrondis */
+    padding: 3px 12px; /* Réduit l'espacement interne pour rendre la barre plus fine */
+    background-color: transparent; /* Fond transparent */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    max-width: 400px; /* Largeur maximale de la barre */
+    flex-grow: 1; /* Permet à la barre de recherche de s'ajuster */
+    margin: 0 20px; /* Espacement horizontal entre les sections */
+}
+
+/* Effet de survol de la barre de recherche */
+.search-bar:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Ombre renforcée au survol */
+    border-color: rgba(77, 115, 223, 0.8); /* Bordure accentuée */
+}
+
+/* Style de l'input de la barre de recherche */
+#searchInput {
+    border: none; /* Supprime les bordures par défaut */
+    outline: none; /* Supprime le focus par défaut */
+    font-size: 14px; /* Taille de la police */
+    padding: 4px 10px; /* Réduit l'espacement vertical pour rendre l'input plus fin */
+    background: transparent; /* Fond transparent */
+    color: black; /* Texte noir */
+    flex: 1; /* Remplit l'espace disponible */
+}
+
+/* Style du bouton de recherche */
+#searchButton {
+    background-color: transparent; /* Fond transparent */
+    border: none; /* Supprime les bordures */
+    color: rgba(77, 115, 223, 1); /* Couleur assortie au style de la navbar */
+    cursor: pointer; /* Curseur en main */
+    font-size: 16px; /* Taille du texte ou de l'icône */
+    transition: color 0.3s ease;
+}
+
+/* Effet de survol du bouton de recherche */
+#searchButton:hover {
+    color: rgba(77, 115, 223, 0.8); /* Couleur légèrement plus sombre au survol */
+}
+
+
+
+/* ---------------- Header ---------------- */
+
+
+@import url(//fonts.googleapis.com/css?family=Lato:300:400);
+
+body {
+  margin: 0;
+}
+
+h1 {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  letter-spacing: 2px;
+  font-size: 48px;
+  padding-top: 30px;
+}
+p {
+  font-family: "Lato", sans-serif;
+  letter-spacing: 1px;
+  font-size: 14px;
+  color: #333333;
+}
+
+.header {
+  position: relative;
+  text-align: center;
+  background: linear-gradient(
+    60deg,
+    rgba(84, 58, 183, 1) 0%,
+    rgba(0, 172, 193, 1) 100%
+  );
+  color: white;
+
+}
+
+
+.logo {
+  width: 50px;
+  fill: white;
+  padding-right: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 30px;
+}
+
+.inner-header {
+  height: 45vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.flex {
+  /*Flexbox for containers*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.waves {
+  position: relative;
+  width: 100%;
+  height: 15vh;
+  margin-bottom: -7px; /*Fix for safari gap*/
+  min-height: 100px;
+  max-height: 150px;
+}
+
+.content {
+  position: relative;
+  height: 20vh;
+  text-align: center;
+  background-color: white;
+}
+
+/* Animation */
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+  .waves {
+    height: 40px;
+    min-height: 40px;
+  }
+  .content {
+    height: 30vh;
+  }
+
+}
+
+
+/* Effet curseur d'écriture */
+#dynamicText {
+    font-size: 32px;
+    font-family: "Courier New", Courier, monospace;
+    white-space: nowrap;
+}
+
+#changingWord {
+    display: inline-block;
+    border-right: 2px solid black; /* Le curseur de saisie */
+    padding-right: 5px;
+    margin-right: 0;
+    animation: blink-caret 0.75s step-end infinite; /* Animation du curseur clignotant */
+}
+
+/* Animation du clignotement du curseur */
+@keyframes blink-caret {
+    50% {
+        border-color: transparent;
+    }
+}
+
+
+
+/* Style pour le texte de description */
+#descriptionText {
+    font-family: Arial, sans-serif; /* Police simple et lisible */
+    font-size: 20px; /* Taille de police légèrement plus grande pour la clarté */
+    color: white; /* Texte en blanc */
+    text-align: center; /* Centre le texte horizontalement */
+    line-height: 1.6; /* Espacement confortable entre les lignes */
+    max-width: 1000px; /* Largeur maximale pour le texte */
+    margin: auto; /* Centre le conteneur et ajoute un espacement vertical */
+    padding: 15px; /* Ajoute de l'espace interne pour aérer */
+    z-index: 10; /* Assure que l'élément est au premier plan */
+    position: relative; /* Permet un positionnement contrôlé */
+    margin-top: -80px;
+    padding-bottom: 20px;
+}
+
+#nameCompany {
+    font-family: 'Georgia', serif; /* Police élégante et douce */
+    font-size: inherit; /* Conserve la taille du parent */
+    font-weight: normal; /* Poids léger pour un aspect doux */
+    color: white; /* Bleu professionnel */
+    text-transform: none; /* Texte normal, pas de majuscules */
+    background: none; /* Pas de fond pour garder un design minimaliste */
+    padding: 0; /* Supprime les espacements internes inutiles */
+    margin: 0; /* Supprime les marges supplémentaires */
+    display: inline; /* Aligne le texte avec le reste du contenu */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.4); /* Ligne douce en dessous pour attirer subtilement l'attention */
+    transition: color 0.3s ease, border-bottom-color 0.3s ease; /* Animation douce au survol */
+}
+
+/* Effet au survol (hover) */
+#nameCompany:hover {
+    color: #0f8db8; /* Change légèrement la couleur au survol */
+    border-bottom-color: #0f8db8; /* Accentue la ligne au survol */
+    cursor: pointer; /* Montre que l'élément est interactif */
+}
+
+
+
+
+/* ---------------- Body ---------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------------- Footer ---------------- */
+
+
+
+
+
+
+
+
+
+
