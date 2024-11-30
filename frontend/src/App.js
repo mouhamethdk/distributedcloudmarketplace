@@ -16,9 +16,9 @@ const App = () => {
     <Router>
       <AppTheme>
         <CssBaseline enableColorScheme />
-{/*       <AppAppBar />  afficher la navbar*/}   
+        <AppAppBar />
       </AppTheme>
-      <div>
+      <div style={{ marginTop: '80px' }}>
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
 	  <Route path="/" element={<MarketingPage />} />

@@ -1,9 +1,13 @@
 import express from 'express';
-import { upload } from '../middlewares/multer.js';
-import { handleFileUpload } from '../controllers/fileController.js';
+import multer from 'multer';
+import { uploadCSV } from '../controllers/dataController.js';
+
+// Configuration de multer pour gérer les fichiers
+const upload = multer({ dest: 'uploads/' });
 
 const router = express.Router();
 
-router.post('/upload', upload.single('file'), handleFileUpload);
+// Route pour importer un fichier CSV
+router.post('/upload', upload.single('file'), uploadCSV);
 
 export default router;
