@@ -1,25 +1,25 @@
 import mongoose from "mongoose";
 
-// Sélectionnez la base de données spécifique
+// Select the specific database
 const targetConnection = mongoose.connection.useDb("applications");
 
-// Fonction pour gérer l'import d'un fichier unique
+// Function to handle the import of a single file
 export const uploadApplication = async (req, res) => {
-    const file = req.file; // Gestion d'un seul fichier
-    const { description } = req.body; // Récupération de la description
+    const file = req.file; // Handling a single file
+    const { description } = req.body; // Get the description
 
     if (!file) {
-        return res.status(400).json({ error: "Aucun fichier fourni." });
+        return res.status(400).json({ error: "No file provided." });
     }
 
     if (!description) {
-        return res.status(400).json({ error: "Une description est requise pour les applications." });
+        return res.status(400).json({ error: "A description is required for applications." });
     }
 
     try {
         const collection = targetConnection.collection("files");
 
-        // Sauvegarder le fichier dans MongoDB
+        // Save the file in MongoDB
         const fileDocument = {
             filename: file.originalname,
             content: file.buffer,
@@ -30,9 +30,9 @@ export const uploadApplication = async (req, res) => {
 
         await collection.insertOne(fileDocument);
 
-        res.json({ message: `Fichier "${file.originalname}" importé avec succès.` });
+        res.json({ message: `File "${file.originalname}" successfully uploaded.` });
     } catch (err) {
-        console.error("Erreur lors de la sauvegarde du fichier :", err);
-        res.status(500).json({ error: "Erreur interne du serveur." });
+        console.error("Error while saving the file:", err);
+        res.status(500).json({ error: "Internal server error." });
     }
 };

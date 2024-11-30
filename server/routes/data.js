@@ -3,7 +3,7 @@ import multer from 'multer';
 import { uploadCSV } from '../controllers/dataController.js';
 
 // Configuration de multer pour gérer les fichiers
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ storage: multer.memoryStorage() });
 
 const router = express.Router();
 

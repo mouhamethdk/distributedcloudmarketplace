@@ -1,32 +1,32 @@
 import mongoose from "mongoose";
 
-// Connexion à la base de données cible "datas"
+// Connect to the target "datas" database
 const targetConnection = mongoose.connection.useDb("datas");
 
-// Fonction pour gérer l'import d'un fichier CSV en tant que binaire
+// Function to handle the import of a CSV file as binary
 export const uploadCSV = async (req, res) => {
-    const file = req.file; // Gestion d'un seul fichier
+  const file = req.file; // Handling a single file
 
-    if (!file) {
-        return res.status(400).json({ error: "Aucun fichier fourni." });
-    }
+  if (!file) {
+      return res.status(400).json({ error: "No file provided." });
+  }
 
-    try {
-        const collection = targetConnection.collection("files");
+  try {
+      const collection = targetConnection.collection("datas");
 
-        // Sauvegarder le fichier dans MongoDB
-        const fileDocument = {
-            filename: file.originalname,
-            content: file.buffer, // Contenu binaire du fichier
-            type: "datas",
-            uploadedAt: new Date(),
-        };
+      // Save the file in MongoDB
+      const fileDocument = {
+          filename: file.originalname,
+          content: file.buffer,
+          type: "datas",
+          uploadedAt: new Date(),
+      };
 
-        await collection.insertOne(fileDocument);
+      await collection.insertOne(fileDocument);
 
-        res.json({ message: `Fichier "${file.originalname}" importé avec succès dans la base "datas".` });
-    } catch (err) {
-        console.error("Erreur lors de la sauvegarde du fichier :", err);
-        res.status(500).json({ error: "Erreur interne du serveur." });
-    }
+      res.json({ message: `File "${file.originalname}" successfully uploaded.` });
+  } catch (err) {
+      console.error("Error while saving the file:", err);
+      res.status(500).json({ error: "Internal server error." });
+  }
 };
