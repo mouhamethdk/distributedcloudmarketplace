@@ -30,3 +30,18 @@ export const uploadCSV = async (req, res) => {
       res.status(500).json({ error: "Internal server error." });
   }
 };
+
+// Récupérer toutes les données
+export const getAllData = async (req, res) => {
+    try {
+        const collection = targetConnection.collection("datas");
+
+        // Récupérer tous les documents de la collection "datas"
+        const files = await collection.find().toArray();
+        console.log("Fichiers récupérés :", files);
+        res.json(files);
+    } catch (err) {
+        console.error("Erreur lors de la récupération des données :", err);
+        res.status(500).json({ error: "Erreur interne du serveur." });
+    }
+};

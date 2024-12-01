@@ -36,3 +36,18 @@ export const uploadApplication = async (req, res) => {
         res.status(500).json({ error: "Internal server error." });
     }
 };
+
+// Récupérer toutes les applications
+export const getAllApplications = async (req, res) => {
+    try {
+        const collection = targetConnection.collection("files");
+
+        // Récupérer tous les documents de la collection "files"
+        const files = await collection.find().toArray();
+        console.log("Fichiers récupérés :", files);
+        res.json(files);
+    } catch (err) {
+        console.error("Erreur lors de la récupération des fichiers :", err);
+        res.status(500).json({ error: "Erreur interne du serveur." });
+    }
+};

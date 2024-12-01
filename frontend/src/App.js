@@ -10,6 +10,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import AppTheme from './shared-theme/AppTheme';
 import Providers from './providers/providers'
 import CsvPreview from './client/test'
+import Test from './client/vis_code_data'; // MongoDB data visualization page
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/provider" element={<Providers />} />
           <Route path="/testdata" element={<CsvPreview />} />
+          <Route path="/visdata" element={<Test />} /> {/* Route pour Test */}
 
         </Routes>
       </div>
