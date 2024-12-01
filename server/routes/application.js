@@ -1,13 +1,16 @@
 import express from 'express';
 import multer from 'multer';
-import { uploadApplication } from '../controllers/applicationController.js';
+import { uploadApplication, uploadHardware } from '../controllers/applicationController.js';
 
-// Middleware Multer pour les fichiers
-const upload = multer({ storage: multer.memoryStorage() });
+// Middleware Multer pour gérer les fichiers
+const upload = multer({ storage: multer.memoryStorage() }); 
 
 const router = express.Router();
 
-// Route pour l'import des applications
-router.post("/upload", upload.single("file"), uploadApplication);
+// Route pour l'import des applications 
+router.post("/application/upload", upload.single("file"), uploadApplication);
+
+// Route for hardware import
+router.post("/hardware/upload", upload.none(), uploadHardware); 
 
 export default router;
