@@ -74,7 +74,13 @@ export default function SignInCard() {
 
       const result = await response.json();
       localStorage.setItem('token', result.token); // Stockez le token JWT
-      navigate('/dashboard'); // Redirige l'utilisateur après connexion
+
+      // Redirection basée sur le rôle
+      if (result.result.role === 'provider') {
+        navigate('/provider'); // Redirige les fournisseurs
+      } else {
+        navigate('/visdata'); // Redirige les utilisateurs
+      }
     } catch (error) {
       setErrorMessage(error.message);
     }

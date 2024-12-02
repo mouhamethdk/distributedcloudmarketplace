@@ -11,6 +11,7 @@ import AppTheme from './shared-theme/AppTheme';
 import Providers from './providers/providers'
 import CsvPreview from './client/test'
 import Test from './client/vis_code_data'; // MongoDB data visualization page
+import ResultPage from "./client/test_pop_up"; // Page pour afficher les résultats
 
 const App = () => {
   return (
@@ -22,7 +23,7 @@ const App = () => {
       <div style={{ marginTop: '80px' }}>
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
-	  <Route path="/" element={<MarketingPage />} />
+      	  <Route path="/" element={<MarketingPage />} />
           <Route path="/signin" element={<SignInSide />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/provider" element={<Providers />} />

@@ -115,6 +115,7 @@ export default function SignUp(props) {
       name: data.get('name'),
       email: data.get('email'),
       password: data.get('password'),
+      role: data.get('role'), // Ajout du rôle
     };
 
     try {
@@ -156,6 +157,14 @@ export default function SignUp(props) {
             onSubmit={handleSubmit}
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
+            <FormControl>
+              <FormLabel htmlFor="role">Role</FormLabel>
+              <select id="role" name="role" required>
+                <option value="user">User</option>
+                <option value="provider">Provider</option>
+              </select>
+            </FormControl>
+
             <FormControl>
               <FormLabel htmlFor="name">Full name</FormLabel>
               <TextField
