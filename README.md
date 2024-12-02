@@ -11,3 +11,28 @@ This project is a distributed cloud marketplace designed to allow clients to sel
 - Secure and immutable transaction records.
 - Proof of service execution.
 ### Intel SGX: TEE (Trust Execution Environment) that ensures confidentiality and integrity of execution
+
+
+
+# Intended usage 
+- Create an Account: Register as a client or provider.
+- Browse Services: View available services from App, Dataset, and Hardware providers.
+- Place an Order: Select services, place an order, and confirm billing.
+- Execution Proof: Upon completion, execution proofs are generated and stored on the blockchain for transparency.
+
+# Sequence diagram
+![alt text](https://github.com/mouhamethdk/distributedcloudmarketplace/blob/main/docs/sequence_diagram.png?raw=true)
+
+
+# For the team
+Steps for a functional setup:
+- Clone the repository:   `git clone <https link of the repo> `
+- Enter the repository:   `cd distributedcloudmarketplace`
+- Work on personal branch:   `git checkout <your_first_name>`. Check the existing branches before performing this action.
+- Switch between branches:   `git checkout <name_of_the_branch`
+
+To perform a push on your branch:
+- Make sure you're on your own branch: `git checkout <your_first_name>`
+- `git add <name_of_the_folder>`. Put `.` if all the directories must be added.
+- `git commit -m <your_commit_message>`
+- `git push origin <your_branch_name>`
