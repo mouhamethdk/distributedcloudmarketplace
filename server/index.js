@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import authRoutes from './routes/auth.js';
 import dataRoutes from './routes/data.js';
 import applicationRoutes from './routes/application.js';
+import hardwareRoutes from './routes/hardware.js'; // Import des routes hardware
+
 import cors from 'cors';
 
 dotenv.config({ path: './config.env' });
@@ -21,17 +23,16 @@ mongoose.connect(process.env.MONGODB_URI)
 // Routes
 app.use('/auth', authRoutes);
 app.use('/data', dataRoutes);
-app.use("/application", applicationRoutes);
+app.use('/application', applicationRoutes);
+app.use('/hardware', hardwareRoutes); // Ajout des routes hardware
 
-
-// Afficher les requêtes qui sont reçues par le serveur
+// Middleware pour afficher les requêtes reçues
 app.use((req, res, next) => {
   console.log(
     `A ${req.method} request received at ${new Date().toISOString()}`
   );
   next();
 });
-
 
 // Démarrer le serveur
 app.listen(PORT, () => {

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 const Test = () => {
   const [applications, setApplications] = useState([]); // Stocker les applications
   const [dataFiles, setDataFiles] = useState([]); // Stocker les données
+  const [hardwareList, setHardwareList] = useState([]); // Stocker les matériels
 
   // Charger les applications depuis MongoDB
   useEffect(() => {
@@ -28,9 +29,21 @@ const Test = () => {
       });
   }, []);
 
+  // Charger les matériels depuis MongoDB
+  useEffect(() => {
+    fetch("http://localhost:5000/hardware/all") // Endpoint pour récupérer les matériels
+      .then((response) => response.json())
+      .then((hardware) => {
+        setHardwareList(hardware); // Stocker les matériels
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des matériels :", error);
+      });
+  }, []);
+
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Applications et Données de MongoDB</h1>
+      <h1>Applications, Données et Matériels de MongoDB</h1>
 
       {/* Section pour les applications */}
       <h2>Applications</h2>
@@ -62,6 +75,28 @@ const Test = () => {
         </ul>
       ) : (
         <p>Chargement des fichiers de données...</p>
+      )}
+
+      {/* Section pour les matériels */}
+      <h2>Matériels</h2>
+      {hardwareList.length > 0 ? (
+        <ul>
+          {hardwareList.map((hardware, index) => (
+            <li key={index} style={{ marginBottom: "10px" }}>
+              <strong>OS :</strong> {hardware.os}
+              <br />
+              <strong>CPU :</strong> {hardware.cpu}
+              <br />
+              <strong>GPU :</strong> {hardware.gpu}
+              <br />
+              <strong>RAM :</strong> {hardware.ram}
+              <br />
+              <strong>Storage :</strong> {hardware.storage}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Chargement des matériels...</p>
       )}
     </div>
   );
