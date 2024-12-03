@@ -1,104 +1,230 @@
 import React, { useEffect, useState } from "react";
+import { Box, CssBaseline, TextField, Typography, MenuItem } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import Footer from '../marketing-page/components/Footer'; // Assurez-vous que le chemin est correct
+
+const Container = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(4),
+  backgroundColor: theme.palette.background.paper,
+  boxShadow: theme.shadows[5],
+  borderRadius: theme.shape.borderRadius,
+  maxWidth: '800px',
+  margin: 'auto',
+}));
 
 const Test = () => {
-  const [applications, setApplications] = useState([]); // Stocker les applications
-  const [dataFiles, setDataFiles] = useState([]); // Stocker les données
-  const [hardwareList, setHardwareList] = useState([]); // Stocker les matériels
+  const [applications, setApplications] = useState([]);
+  const [dataFiles, setDataFiles] = useState([]);
+  const [hardwareList, setHardwareList] = useState([]);
+  const [hoveredDescription, setHoveredDescription] = useState('');
+  const [hoveredPosition, setHoveredPosition] = useState({});
+  const [selectedApp, setSelectedApp] = useState("");
+  const [selectedDataFile, setSelectedDataFile] = useState("");
+  const [selectedHardware, setSelectedHardware] = useState("");
 
-  // Charger les applications depuis MongoDB
   useEffect(() => {
-    fetch("http://localhost:5000/application/all") // Endpoint pour récupérer les applications
+    fetch("http://localhost:5000/application/all")
       .then((response) => response.json())
-      .then((apps) => {
-        setApplications(apps); // Stocker les applications
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la récupération des applications :", error);
-      });
+      .then((apps) => setApplications(apps))
+      .catch((error) =>
+        console.error("Erreur lors de la récupération des applications :", error)
+      );
   }, []);
 
-  // Charger les fichiers de données depuis MongoDB
   useEffect(() => {
-    fetch("http://localhost:5000/data/all") // Endpoint pour récupérer les données
+    fetch("http://localhost:5000/data/all")
       .then((response) => response.json())
-      .then((files) => {
-        setDataFiles(files); // Stocker les données
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la récupération des données :", error);
-      });
+      .then((files) => setDataFiles(files))
+      .catch((error) =>
+        console.error("Erreur lors de la récupération des données :", error)
+      );
   }, []);
 
-  // Charger les matériels depuis MongoDB
   useEffect(() => {
-    fetch("http://localhost:5000/hardware/all") // Endpoint pour récupérer les matériels
+    fetch("http://localhost:5000/hardware/all")
       .then((response) => response.json())
-      .then((hardware) => {
-        setHardwareList(hardware); // Stocker les matériels
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la récupération des matériels :", error);
-      });
+      .then((hardware) => setHardwareList(hardware))
+      .catch((error) =>
+        console.error("Erreur lors de la récupération des matériels :", error)
+      );
   }, []);
+
+  const handleMouseEnter = (description, event) => {
+    const rect = event.target.getBoundingClientRect();
+    setHoveredDescription(description);
+    setHoveredPosition({ top: rect.top + window.scrollY, left: rect.right + 10 });
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredDescription('');
+    setHoveredPosition({});
+  };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Applications, Données et Matériels de MongoDB</h1>
+    <React.Fragment>
+      <CssBaseline />
+      <Container>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Applications, Données et Matériels de MongoDB
+        </Typography>
 
-      {/* Section pour les applications */}
-      <h2>Applications</h2>
-      {applications.length > 0 ? (
-        <ul>
-          {applications.map((app, index) => (
-            <li key={index} style={{ marginBottom: "10px" }}>
-              <strong>Nom du fichier :</strong> {app.filename}
-              <br />
-              <strong>Description :</strong> {app.description || "Aucune description"}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Chargement des applications...</p>
-      )}
+        {/* Section pour les applications */}
+        <Box mb={4}>
+          <Typography variant="h5" component="h2">
+            Applications
+          </Typography>
+          {applications.length > 0 ? (
+            <>
+              <TextField
+                select
+                label="Sélectionner une application"
+                fullWidth
+                variant="outlined"
+                margin="normal"
+                value={selectedApp}
+                onChange={(e) => setSelectedApp(e.target.value)}
+              >
+                {applications.map((app, index) => (
+                  <MenuItem
+                    key={index}
+                    value={app.filename}
+                    onMouseEnter={(e) => handleMouseEnter(app.description, e)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    {app.filename}
+                  </MenuItem>
+                ))}
+              </TextField>
+              {hoveredDescription && (
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: hoveredPosition.top,
+                    left: hoveredPosition.left,
+                    backgroundColor: 'white',
+                    color: 'black',
+                    border: '1px solid #ccc',
+                    padding: '10px',
+                    zIndex: 1000,
+                  }}
+                >
+                  <Typography variant="h6">Description</Typography>
+                  <Typography>{hoveredDescription}</Typography>
+                </Box>
+              )}
+            </>
+          ) : (
+            <Typography color="error">Aucune application trouvée.</Typography>
+          )}
+        </Box>
 
-      {/* Section pour les données */}
-      <h2>Données</h2>
-      {dataFiles.length > 0 ? (
-        <ul>
-          {dataFiles.map((file, index) => (
-            <li key={index} style={{ marginBottom: "10px" }}>
-              <strong>Nom du fichier :</strong> {file.filename}
-              <br />
-              <strong>Description :</strong> {file.description || "Aucune description"}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Chargement des fichiers de données...</p>
-      )}
+        {/* Section pour les données */}
+        <Box mb={4}>
+          <Typography variant="h5" component="h2">
+            Données
+          </Typography>
+          {dataFiles.length > 0 ? (
+            <>
+              <TextField
+                select
+                label="Sélectionner une donnée"
+                fullWidth
+                variant="outlined"
+                margin="normal"
+                value={selectedDataFile}
+                onChange={(e) => setSelectedDataFile(e.target.value)}
+              >
+                {dataFiles.map((file, index) => (
+                  <MenuItem
+                    key={index}
+                    value={file.filename}
+                    onMouseEnter={(e) => handleMouseEnter(file.description, e)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    {file.filename}
+                  </MenuItem>
+                ))}
+              </TextField>
+              {hoveredDescription && (
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: hoveredPosition.top,
+                    left: hoveredPosition.left,
+                    backgroundColor: 'white',
+                    color: 'black',
+                    border: '1px solid #ccc',
+                    padding: '10px',
+                    zIndex: 1000,
+                  }}
+                >
+                  <Typography variant="h6">Description</Typography>
+                  <Typography>{hoveredDescription}</Typography>
+                </Box>
+              )}
+            </>
+          ) : (
+            <Typography color="error">Aucune donnée trouvée.</Typography>
+          )}
+        </Box>
 
-      {/* Section pour les matériels */}
-      <h2>Matériels</h2>
-      {hardwareList.length > 0 ? (
-        <ul>
-          {hardwareList.map((hardware, index) => (
-            <li key={index} style={{ marginBottom: "10px" }}>
-              <strong>OS :</strong> {hardware.os}
-              <br />
-              <strong>CPU :</strong> {hardware.cpu}
-              <br />
-              <strong>GPU :</strong> {hardware.gpu}
-              <br />
-              <strong>RAM :</strong> {hardware.ram}
-              <br />
-              <strong>Storage :</strong> {hardware.storage}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Chargement des matériels...</p>
-      )}
-    </div>
+        {/* Section pour les matériels */}
+        <Box mb={4}>
+          <Typography variant="h5" component="h2">
+            Matériels
+          </Typography>
+          {hardwareList.length > 0 ? (
+            <>
+              <TextField
+                select
+                label="Sélectionner un matériel"
+                fullWidth
+                variant="outlined"
+                margin="normal"
+                value={selectedHardware}
+                onChange={(e) => setSelectedHardware(e.target.value)}
+              >
+                {hardwareList.map((hardware, index) => (
+                  <MenuItem
+                    key={index}
+                    value={`${hardware.os}, ${hardware.cpu}`}
+                    onMouseEnter={(e) =>
+                      handleMouseEnter(
+                        `OS: ${hardware.os}, CPU: ${hardware.cpu}, GPU: ${hardware.gpu}, RAM: ${hardware.ram}, Storage: ${hardware.storage}`,
+                        e
+                      )
+                    }
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    {`OS: ${hardware.os}, CPU: ${hardware.cpu}`}
+                  </MenuItem>
+                ))}
+              </TextField>
+              {hoveredDescription && (
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: hoveredPosition.top,
+                    left: hoveredPosition.left,
+                    backgroundColor: 'white',
+                    color: 'black',
+                    border: '1px solid #ccc',
+                    padding: '10px',
+                    zIndex: 1000,
+                  }}
+                >
+                  <Typography variant="h6">Description</Typography>
+                  <Typography>{hoveredDescription}</Typography>
+                </Box>
+              )}
+            </>
+          ) : (
+            <Typography color="error">Aucun matériel trouvé.</Typography>
+          )}
+        </Box>
+      </Container>
+      <Footer />
+    </React.Fragment>
   );
 };
 
