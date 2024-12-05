@@ -56,13 +56,10 @@ export default function AppAppBar() {
             <Sitemark />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Button variant="text" color="info" size="small">
-                Features
+                Products
               </Button>
               <Button variant="text" color="info" size="small">
-                Testimonials
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Highlights
+                Use Case
               </Button>
               <Button variant="text" color="info" size="small">
                 Pricing
@@ -73,6 +70,9 @@ export default function AppAppBar() {
               <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
                 Blog
               </Button>
+              <Button variant="text" color="info" size="small">
+                Testimonials
+              </Button>
             </Box>
           </Box>
           <Box
@@ -82,6 +82,9 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
+            <Button variant="text" color="info" size="small">
+                Dashboard
+            </Button>
             <Button component={Link} to="/signin" color="primary" variant="contained" size="small">
               Sign in
             </Button>
@@ -117,15 +120,16 @@ export default function AppAppBar() {
                   </IconButton>
                 </Box>
 
-                <MenuItem>Features</MenuItem>
-                <MenuItem>Testimonials</MenuItem>
-                <MenuItem>Highlights</MenuItem>
+                <MenuItem>Products</MenuItem>
+                <MenuItem>Use Case</MenuItem>
                 <MenuItem>Pricing</MenuItem>
                 <MenuItem>FAQ</MenuItem>
                 <MenuItem>Blog</MenuItem>
+                <MenuItem>Testimonials</MenuItem>
                 <Divider sx={{ my: 3 }} />
+                <MenuItem>Dashboard</MenuItem>
                 <MenuItem>
-                < Button component={Link} to="/signup" color="primary" variant="contained" fullWidth>
+                  < Button component={Link} to="/signup" color="primary" variant="contained" fullWidth>
                     Sign up
                   </Button>
                 </MenuItem>

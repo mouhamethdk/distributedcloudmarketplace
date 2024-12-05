@@ -5,7 +5,7 @@ import authRoutes from './routes/auth.js';
 import dataRoutes from './routes/data.js';
 import applicationRoutes from './routes/application.js';
 import hardwareRoutes from './routes/hardware.js'; // Import des routes hardware
-
+import cartRoutes from './routes/cart.js'; 
 import cors from 'cors';
 
 dotenv.config({ path: './config.env' });
@@ -25,6 +25,7 @@ app.use('/auth', authRoutes);
 app.use('/data', dataRoutes);
 app.use('/application', applicationRoutes);
 app.use('/hardware', hardwareRoutes); // Ajout des routes hardware
+app.use('/api/cart', cartRoutes);
 
 // Middleware pour afficher les requêtes reçues
 app.use((req, res, next) => {

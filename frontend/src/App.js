@@ -9,9 +9,10 @@ import AppAppBar from './marketing-page/components/AppAppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppTheme from './shared-theme/AppTheme';
 import Providers from './providers/providers'
-import CsvPreview from './client/test'
-import Test from './client/vis_code_data'; // MongoDB data visualization page
-import ResultPage from "./client/test_pop_up"; // Page pour afficher les résultats
+// import CsvPreview from './client/test'
+import ProductList from './components/ProductList'; // Liste des produits
+import Cart from './client/Cart'; // Panier d'achat
+import Pricing from './components/Pricing'; // Page de tarification
 
 const App = () => {
   return (
@@ -27,9 +28,10 @@ const App = () => {
           <Route path="/signin" element={<SignInSide />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/provider" element={<Providers />} />
-          <Route path="/testdata" element={<CsvPreview />} />
-          <Route path="/visdata" element={<Test />} /> {/* Route pour Test */}
-
+          {/* <Route path="/testdata" element={<CsvPreview />} /> */}
+          <Route path="/products" element={<ProductList />} /> {/* Route pour la liste des produits */}
+          <Route path="/cart" element={<Cart />} /> {/* Route pour le panier d'achat */}
+          <Route path="/pricing" element={<Pricing />} /> {/* Route pour la page de tarification */}
         </Routes>
       </div>
     </Router>
