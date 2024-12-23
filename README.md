@@ -1,8 +1,6 @@
-Voici une version synthétisée et mieux structurée du README avec une section spéciale pour le code :
 
----
 
-# Application Blockchain avec Ganache
+# Marketplace 
 
 Ce projet permet de gérer du contenu en exploitant la blockchain Ethereum pour garantir son intégrité et son authenticité. Voici un guide pour démarrer et utiliser l'application.
 
@@ -19,10 +17,6 @@ Ce projet permet de gérer du contenu en exploitant la blockchain Ethereum pour 
 ### Étapes
 
 1. **Cloner le dépôt**  
-   ```bash
-   git clone <repository-url>
-   cd <repository-folder>
-   ```
 
 2. **Installer les dépendances**  
    ```bash
@@ -40,7 +34,7 @@ Ce projet permet de gérer du contenu en exploitant la blockchain Ethereum pour 
      truffle migrate --network development
      ```
 
-5. **Démarrer le serveur**  
+5. **Démarrer le serveur et le frontend**  
    ```bash
    npm start
    ```
@@ -167,12 +161,6 @@ export const checkout = async (req, res) => {
 Suivez les étapes pour démarrer et utiliser efficacement l'application.
 
 
-
-
-
-Voici une version enrichie et structurée pour compléter votre README :
-
----
 
 ## 🗂 Organisation de la Base de Données MongoDB
 
