@@ -6,6 +6,7 @@ const targetConnection = mongoose.connection.useDb("datas");
 // Function to handle the import of a CSV file as binary
 export const uploadCSV = async (req, res) => {
   const file = req.file; // Handling a single file
+  const user = req.user; // User information from the JWT token (user ID and other details)
 
   if (!file) {
       return res.status(400).json({ error: "No file provided." });
@@ -20,6 +21,7 @@ export const uploadCSV = async (req, res) => {
           content: file.buffer,
           type: "datas",
           uploadedAt: new Date(),
+          userId: user.id, // Add the user ID to the file document
       };
 
       await collection.insertOne(fileDocument);

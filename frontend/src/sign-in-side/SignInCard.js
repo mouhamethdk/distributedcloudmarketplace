@@ -14,6 +14,8 @@ import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import ForgotPassword from './ForgotPassword';
 import { GoogleIcon, GithubIcon, SitemarkIcon } from './CustomIcons';
+import API from '../api';
+import { useAuth } from '../context/AuthContext';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -34,6 +36,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }));
 
 export default function SignInCard() {
+  const { login } = useAuth(); // Hook pour appeler la fonction `login` du contexte
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
@@ -61,28 +64,26 @@ export default function SignInCard() {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/auth/signin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(credentials),
-      });
+      // Appel API avec l'instance Axios
+      const response = await API.post('/auth/signin', credentials);
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Login failed');
-      }
+      const result = response.data; // Récupérer les données de la réponse
+      login(result.user_info, result.token); // Appeler la fonction `login` pour stocker l'utilisateur et le token
 
-      const result = await response.json();
-      localStorage.setItem('token', result.token); // Stockez le token JWT
 
       // Redirection basée sur le rôle
-      if (result.result.role === 'provider') {
-        navigate('/provider'); // Redirige les fournisseurs
+      if (result.user_info.role === 'provider') {
+          navigate('/provider'); // Redirige les fournisseurs
       } else {
-        navigate('/cart'); // Redirige les utilisateurs
+          navigate('/cart'); // Redirige les utilisateurs
       }
     } catch (error) {
-      setErrorMessage(error.message);
+        // Gérer les erreurs API
+        if (error.response && error.response.data.message) {
+            setErrorMessage(error.response.data.message);
+        } else {
+            setErrorMessage('Login failed. Please try again.');
+        }
     }
   };
 

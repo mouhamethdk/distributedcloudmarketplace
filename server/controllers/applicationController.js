@@ -7,6 +7,7 @@ const targetConnection = mongoose.connection.useDb("applications");
 export const uploadApplication = async (req, res) => {
     const file = req.file; // Handling a single file
     const { description } = req.body; // Get the description
+    const user = req.user; // User information from the JWT token (user ID and other details)
 
     if (!file) {
         return res.status(400).json({ error: "No file provided." });
@@ -26,6 +27,7 @@ export const uploadApplication = async (req, res) => {
             type: "application",
             description,
             uploadedAt: new Date(),
+            userId: user.id, // Add the user ID to the file document
         };
 
         await collection.insertOne(fileDocument);

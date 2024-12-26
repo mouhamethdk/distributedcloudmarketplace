@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API from '../api'; // Importer l'instance Axios configurée
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -112,7 +114,7 @@ const DataUpload = () => {
           ? 'http://localhost:5000/application/upload'
           : 'http://localhost:5000/hardware/upload';
 
-      const response = await axios.post(url, formData, {
+      const response = await API.post(url, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 

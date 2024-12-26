@@ -13,28 +13,34 @@ import Providers from './providers/providers'
 import ProductList from './components/ProductList'; // Liste des produits
 import Cart from './client/Cart'; // Panier d'achat
 import Pricing from './components/Pricing'; // Page de tarification
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoutes';
+
+
 
 const App = () => {
   return (
-    <Router>
-      <AppTheme>
-        <CssBaseline enableColorScheme />
-        <AppAppBar />
-      </AppTheme>
-      <div style={{ marginTop: '80px' }}>
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
-      	  <Route path="/" element={<MarketingPage />} />
-          <Route path="/signin" element={<SignInSide />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/provider" element={<Providers />} />
-          {/* <Route path="/testdata" element={<CsvPreview />} /> */}
-          <Route path="/products" element={<ProductList />} /> {/* Route pour la liste des produits */}
-          <Route path="/cart" element={<Cart />} /> {/* Route pour le panier d'achat */}
-          <Route path="/pricing" element={<Pricing />} /> {/* Route pour la page de tarification */}
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppTheme>
+          <CssBaseline enableColorScheme />
+          <AppAppBar />
+        </AppTheme>
+        <div style={{ marginTop: '80px' }}>
+          <Routes>
+            <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
+            <Route path="/" element={<MarketingPage />} />
+            <Route path="/signin" element={<SignInSide />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/provider" element={<ProtectedRoute> <Providers /> </ProtectedRoute>} />
+            {/* <Route path="/testdata" element={<CsvPreview />} /> */}
+            <Route path="/products" element={<ProductList />} /> {/* Route pour la liste des produits */}
+            <Route path="/cart" element={<ProtectedRoute> <Cart /> </ProtectedRoute>} /> {/* Route pour le panier d'achat */}
+            <Route path="/pricing" element={<ProtectedRoute> <Pricing /></ProtectedRoute>} /> {/* Route pour la page de tarification */}
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 };
 

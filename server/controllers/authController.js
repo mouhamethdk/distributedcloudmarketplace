@@ -32,8 +32,16 @@ export const signin = async (req, res) => {
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid credentials' });
 
-    const token = jwt.sign({ email: user.email, id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.status(200).json({ result: user, token });
+    const token = jwt.sign(
+      { email: user.email, id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    // Supprimer le mot de passe avant d'envoyer l'utilisateur
+    const { password: _, ...userWithoutPassword } = user._doc;
+
+    res.status(200).json({ user_info: userWithoutPassword, token });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }

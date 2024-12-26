@@ -6,6 +6,8 @@ const targetConnection = mongoose.connection.useDb("applications");
 // Hardware Import
 export const uploadHardware = async (req, res) => {
     const { os, cpu, gpu, ram, storage } = req.body; 
+    const user = req.user; // User information from the JWT token (user ID and other details)
+
 
     //Check the hardware details
     if (!os || !cpu || !gpu || !ram || !storage) {
@@ -24,6 +26,7 @@ export const uploadHardware = async (req, res) => {
             storage,
             type: "hardware",
             uploadedAt: new Date(),
+            userId: user.id, // Add the user ID to the file document
         };
 
         await hardwareCollection.insertOne(hardwareDocument);
