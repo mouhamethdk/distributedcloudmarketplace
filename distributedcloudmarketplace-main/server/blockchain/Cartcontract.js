@@ -1,23 +1,106 @@
-import { fileURLToPath } from 'url';
-import path from 'path';
-import fs from 'fs/promises';
+// filepath: /Users/emmanuellaodounlami/Documents/distributedcloudmarketplace-main/server/blockchain/Cartcontract.js
 import Web3 from 'web3';
+import HDWalletProvider from '@truffle/hdwallet-provider';
+import dotenv from 'dotenv';
 
-// Définir __dirname manuellement
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+dotenv.config({ path: './config.env' });
 
-const contractAddress = '0x4B58d56DCFf5035f750b4B26f811209FFf1bE6A7'; // Adresse de votre contrat
-const web3 = new Web3('http://127.0.0.1:7545'); // URL de Ganache
+const infuraKey = process.env.INFURA_KEY; // Utilisez la clé Infura depuis le fichier .env
+const mnemonic = process.env.MNEMONIC; // Utilisez la mnémonique depuis le fichier .env
 
-async function loadContractABI() {
-  const filePath = path.resolve(__dirname, 'CartContract.json'); // Utilisez __dirname pour obtenir le chemin absolu
-  const fileContents = await fs.readFile(filePath, 'utf-8');
-  return JSON.parse(fileContents);
-}
+const provider = new HDWalletProvider(mnemonic, `https://sepolia.infura.io/v3/${infuraKey}`);
+const web3 = new Web3(provider);
 
-const contractABI = await loadContractABI();
-const contract = new web3.eth.Contract(contractABI.abi, contractAddress);
+const contractAddress = '0x4daa6aFBCe23a93178ba60C6ca538f152cb60aa7'; // Nouvelle adresse du contrat
+const contractABI = [
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "user", "type": "address" },
+      { "indexed": false, "internalType": "string", "name": "username", "type": "string" },
+      {
+        "components": [
+          { "internalType": "string", "name": "itemId", "type": "string" },
+          { "internalType": "string", "name": "itemType", "type": "string" },
+          { "internalType": "string", "name": "username", "type": "string" },
+          { "internalType": "string", "name": "filename", "type": "string" },
+          { "internalType": "string", "name": "content", "type": "string" },
+          { "internalType": "string", "name": "os", "type": "string" },
+          { "internalType": "string", "name": "cpu", "type": "string" },
+          { "internalType": "string", "name": "gpu", "type": "string" },
+          { "internalType": "string", "name": "ram", "type": "string" },
+          { "internalType": "string", "name": "storageCapacity", "type": "string" }
+        ],
+        "indexed": false,
+        "internalType": "struct CartContract.CartItem[]",
+        "name": "cart",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "CartUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_username", "type": "string" },
+      { "internalType": "string", "name": "_itemId", "type": "string" },
+      { "internalType": "string", "name": "_itemType", "type": "string" },
+      { "internalType": "string", "name": "_filename", "type": "string" },
+      { "internalType": "string", "name": "_content", "type": "string" },
+      { "internalType": "string", "name": "_os", "type": "string" },
+      { "internalType": "string", "name": "_cpu", "type": "string" },
+      { "internalType": "string", "name": "_gpu", "type": "string" },
+      { "internalType": "string", "name": "_ram", "type": "string" },
+      { "internalType": "string", "name": "_storageCapacity", "type": "string" }
+    ],
+    "name": "addItemToCart",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_user", "type": "address" }],
+    "name": "getCart",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "string", "name": "username", "type": "string" },
+          {
+            "components": [
+              { "internalType": "string", "name": "itemId", "type": "string" },
+              { "internalType": "string", "name": "itemType", "type": "string" },
+              { "internalType": "string", "name": "username", "type": "string" },
+              { "internalType": "string", "name": "filename", "type": "string" },
+              { "internalType": "string", "name": "content", "type": "string" },
+              { "internalType": "string", "name": "os", "type": "string" },
+              { "internalType": "string", "name": "cpu", "type": "string" },
+              { "internalType": "string", "name": "gpu", "type": "string" },
+              { "internalType": "string", "name": "ram", "type": "string" },
+              { "internalType": "string", "name": "storageCapacity", "type": "string" }
+            ],
+            "internalType": "struct CartContract.CartItem[]",
+            "name": "cart",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct CartContract.UserCart",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "userCarts",
+    "outputs": [{ "internalType": "string", "name": "username", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+
+const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 export async function executeContract(username, cart) {
   try {
@@ -31,9 +114,14 @@ export async function executeContract(username, cart) {
 
     for (const item of cart) {
       const formattedItem = {
-        ...item,
-        itemId: item.itemId.toString(), // Convertir ObjectId en chaîne
+        itemId: item.itemId.toString(),
+        itemType: item.itemType,
+        filename: item.filename || '',
         content: item.content || '', // Assurer que content est une chaîne base64 ou vide
+        os: item.os || '',
+        cpu: item.cpu || '',
+        gpu: item.gpu || '',
+        ram: item.ram || '',
         storageCapacity: item.storageCapacity || '', // Renommer pour correspondre au contrat
       };
 
@@ -42,14 +130,13 @@ export async function executeContract(username, cart) {
           username,
           formattedItem.itemId,
           formattedItem.itemType,
-          formattedItem.filename || '',
+          formattedItem.filename,
           formattedItem.content,
-          formattedItem.os || '',
-          formattedItem.cpu || '',
-          formattedItem.gpu || '',
-          formattedItem.ram || '',
+          formattedItem.os,
+          formattedItem.cpu,
+          formattedItem.gpu,
+          formattedItem.ram,
           formattedItem.storageCapacity
-
         )
         .send({
           from: accounts[0],
